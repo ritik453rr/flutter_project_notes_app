@@ -16,7 +16,7 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
-    Provider.of<NotesViewModel>(context, listen: false).loadNotes();
+    Provider.of<NotesViewModel>(context, listen: false).loadLocalNotes();
     super.initState();
   }
 

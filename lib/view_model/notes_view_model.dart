@@ -13,7 +13,7 @@ class NotesViewModel extends ChangeNotifier {
   final NotesRepo notesRepo = NotesRepo();
   final LocalStorageService localStorageService = LocalStorageService();
 
-  //load Notes.....
+  //load Notes from api store in the local storage
   Future<void> loadNotes() async {
     _isLoading = true; // Set loading to true
     _errorMessage = null; // Reset error message
@@ -21,6 +21,21 @@ class NotesViewModel extends ChangeNotifier {
     try {
       List<NoteModel> apiNotes = await notesRepo.getNotes();
       await localStorageService.saveNotes(apiNotes);
+      _notes = await localStorageService.getNotes();
+    } catch (error) {
+      _errorMessage =
+          'An error occurred: ${error.toString()}'; // Set the error message
+    } finally {
+      _isLoading = false; // Set loading to false when done
+      notifyListeners();
+    }
+  }
+  //Load note from local storage
+  Future<void> loadLocalNotes() async {
+    _isLoading = true; // Set loading to true
+    _errorMessage = null; // Reset error message
+    notifyListeners(); 
+    try {
       _notes = await localStorageService.getNotes();
     } catch (error) {
       _errorMessage =

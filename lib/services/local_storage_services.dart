@@ -20,7 +20,6 @@ class LocalStorageService {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       List<String>? noteStrings = prefs.getStringList('notes');
-
       if (noteStrings != null) {
         return noteStrings
             .map((note) => NoteModel.fromJson(jsonDecode(note)))
