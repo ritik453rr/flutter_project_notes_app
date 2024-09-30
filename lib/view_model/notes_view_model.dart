@@ -17,7 +17,7 @@ class NotesViewModel extends ChangeNotifier {
   Future<void> loadNotes() async {
     _isLoading = true; // Set loading to true
     _errorMessage = null; // Reset error message
-    notifyListeners(); // Notify the UI about th
+    notifyListeners(); 
     try {
       List<NoteModel> apiNotes = await notesRepo.getNotes();
       await localStorageService.saveNotes(apiNotes);
@@ -43,7 +43,7 @@ class NotesViewModel extends ChangeNotifier {
     }
   }
 
-  //Post Note
+  //Delete Note
   Future<void> deleteNote({required noteId}) async {
     try {
       await notesRepo.deleteNote(noteId: noteId);
