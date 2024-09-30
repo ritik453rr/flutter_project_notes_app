@@ -31,7 +31,7 @@ class NotesViewModel extends ChangeNotifier {
     }
   }
 
-  //Post Notes
+  //Post Note
   Future<void> postNote(
       {required String title, required String description}) async {
     try {

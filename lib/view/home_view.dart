@@ -124,7 +124,7 @@ class _HomeViewState extends State<HomeView> {
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
-                                  child: const Text("No"),
+                                  child: const Text("No "),
                                 ),
                                 TextButton(
                                   onPressed: () {

@@ -40,7 +40,7 @@ class NotesRepo {
         id: id);
   }
 
-  //delete todo
+  //delete note
   Future<void> deleteNote({required String noteId}) async {
     await apiServices.deleteRequest(
         deleteUrl: AppUrl.deleteNotesEndPoint, id: noteId);
