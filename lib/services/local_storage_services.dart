@@ -3,7 +3,7 @@ import 'package:notes_app/model/note_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalStorageService {
-  // Save notes to shared preferences 
+  // Save notes to shared preferences
   Future<void> saveNotes(List<NoteModel> notes) async {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -16,12 +16,12 @@ class LocalStorageService {
   }
 
   // Get notes from shared preferences with error handling
-  Future<List<NoteModel>> getNotes() async {
+  Future<List<NoteModel>> getLocalNotes() async {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-      List<String>? noteStrings = prefs.getStringList('notes');
-      if (noteStrings != null) {
-        return noteStrings
+      List<String>? notesStrings = prefs.getStringList('notes');
+      if (notesStrings != null) {
+        return notesStrings
             .map((note) => NoteModel.fromJson(jsonDecode(note)))
             .toList();
       } else {

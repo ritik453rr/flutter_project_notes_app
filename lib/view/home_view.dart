@@ -40,7 +40,7 @@ class _HomeViewState extends State<HomeView> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => WeatheView(),
+                  builder: (context) => const WeatheView(),
                 ),
               );
             },
@@ -123,14 +123,14 @@ class _HomeViewState extends State<HomeView> {
                           context: context,
                           builder: (context) {
                             return AlertDialog(
-                              title: const Text("Delete Todo"),
-                              content: const Text("Sure to delete todo?"),
+                              title: const Text("Delete Note"),
+                              content: const Text("Sure to delete Note?"),
                               actions: [
                                 TextButton(
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
-                                  child: const Text("No "),
+                                  child: const Text("No"),
                                 ),
                                 TextButton(
                                   onPressed: () {
