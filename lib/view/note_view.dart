@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app/model/NoteModel.dart';
+import 'package:notes_app/model/note_model.dart';
 import 'package:notes_app/view_model/notes_view_model.dart';
 import 'package:provider/provider.dart';
 import 'dart:async'; // For debouncing

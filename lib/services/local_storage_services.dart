@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:notes_app/model/NoteModel.dart';
+import 'package:notes_app/model/note_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalStorageService {

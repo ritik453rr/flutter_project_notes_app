@@ -1,4 +1,4 @@
-import 'package:notes_app/model/NoteModel.dart';
+import 'package:notes_app/model/note_model.dart';
 import 'package:notes_app/res/app_url.dart';
 import 'package:notes_app/services/notes_api_services.dart';
 

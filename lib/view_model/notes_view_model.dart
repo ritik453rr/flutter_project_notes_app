@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app/model/NoteModel.dart';
+import 'package:notes_app/model/note_model.dart';
 import 'package:notes_app/repository/notes_repo.dart';
 import 'package:notes_app/services/local_storage_services.dart';
 

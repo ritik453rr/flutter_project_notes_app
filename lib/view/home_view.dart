@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app/model/NoteModel.dart';
+import 'package:notes_app/model/note_model.dart';
 import 'package:notes_app/view/add_note_view.dart';
 import 'package:notes_app/view/note_view.dart';
 import 'package:notes_app/view/weather_view.dart';
