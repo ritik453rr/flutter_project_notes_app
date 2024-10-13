@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:notes_app/model/note_model.dart';
-import 'package:notes_app/repository/notes_repo.dart';
+import 'package:notes_app/res/app_url.dart';
 import 'package:notes_app/services/local_storage_services.dart';
+import 'package:notes_app/services/notes_api_services.dart';
 
 class NotesViewModel extends ChangeNotifier {
+
   List<NoteModel> _notes = [];
   bool _isLoading = false;
   String? _errorMessage;
-  List<NoteModel> get notes => _notes;
-  bool get isLoading => _isLoading;
-  String? get errorMessage => _errorMessage;
-  final NotesRepo notesRepo = NotesRepo();
+  final NotesApiServices notesApiServices = NotesApiServices();
   final LocalStorageService localStorageService = LocalStorageService();
+
+  List<NoteModel> get notes => _notes;
+
+  bool get isLoading => _isLoading;
+
+  String? get errorMessage => _errorMessage;
+  
 
   //load Notes from api store in the local storage
   Future<void> loadNotes() async {
@@ -19,7 +25,8 @@ class NotesViewModel extends ChangeNotifier {
     _errorMessage = null; // Reset error message
     notifyListeners();
     try {
-      List<NoteModel> apiNotes = await notesRepo.getNotes();
+      List<NoteModel> apiNotes =
+      await notesApiServices.getRequest(AppUrl.getNotesUrl);
       await localStorageService.saveNotes(apiNotes);
       _notes = await localStorageService.getLocalNotes();
     } catch (error) {
@@ -51,7 +58,8 @@ class NotesViewModel extends ChangeNotifier {
   Future<void> postNote(
       {required String title, required String description}) async {
     try {
-      await notesRepo.postNote(title: title, description: description);
+      await notesApiServices.postRequest(
+          title: title, description: description);
       notifyListeners();
     } catch (error) {
       _errorMessage =
@@ -62,7 +70,8 @@ class NotesViewModel extends ChangeNotifier {
   //Delete Note
   Future<void> deleteNote({required noteId}) async {
     try {
-      await notesRepo.deleteNote(noteId: noteId);
+      await notesApiServices.deleteRequest(
+          id: noteId, deleteUrl: AppUrl.deleteNotesUrl);
       _notes.removeWhere(
         (element) => element.sId == noteId,
       );
@@ -79,8 +88,11 @@ class NotesViewModel extends ChangeNotifier {
       required String description,
       required String id}) async {
     try {
-      await notesRepo.updateNote(
-          title: title, description: description, id: id);
+      await notesApiServices.putRequest(
+          title: title,
+          description: description,
+          id: id,
+          putUrl: AppUrl.putNotesUrl);
       int index = _notes.indexWhere(
         (element) => element.sId == id,
       );

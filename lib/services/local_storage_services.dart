@@ -3,6 +3,8 @@ import 'package:notes_app/model/note_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalStorageService {
+  static String loginStatusKey = "loginKey";
+
   // Save notes to shared preferences
   Future<void> saveNotes(List<NoteModel> notes) async {
     try {
@@ -30,5 +32,18 @@ class LocalStorageService {
     } catch (error) {
       throw Exception('Failed to load notes locally: $error');
     }
+  }
+
+  //Set Login Status
+  void setLoginStatus({required bool status}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool(loginStatusKey, status);
+  }
+
+  //Get Login Status
+   Future<bool?> getLoginStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool? result = prefs.getBool(loginStatusKey);
+    return result;
   }
 }

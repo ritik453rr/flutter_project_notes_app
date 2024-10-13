@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app/view/home_view.dart';
 import 'package:notes_app/view_model/notes_view_model.dart';
 import 'package:notes_app/view_model/weather_view_model.dart';
+import 'package:notes_app/views/splash_view.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -21,10 +21,9 @@ class MyApp extends StatelessWidget {
           create: (context) => WeatherViewModel(),
         ),
       ],
-      child: MaterialApp(
+      child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData.dark(),
-        home: const HomeView(),
+        home: SplashView(),
       ),
     );
   }

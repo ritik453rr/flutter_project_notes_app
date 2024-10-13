@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:notes_app/model/weather_model.dart';
-import 'package:notes_app/repository/weather_repo.dart';
+import 'package:notes_app/services/weather_api_services.dart';
 
 class WeatherViewModel extends ChangeNotifier {
-  final WeatherRepo weatherRepo = WeatherRepo();
+  WeatherApiServices weatherApiServices = WeatherApiServices();
   WeatherModel weather = WeatherModel();
   bool isLoading = false;
   String? errorMessage; // New property for error message
@@ -13,7 +13,7 @@ class WeatherViewModel extends ChangeNotifier {
     errorMessage = null; // Reset error message before loading
     notifyListeners();
     try {
-      final result = await weatherRepo.getWeather(city: location);
+      final result = await weatherApiServices.getWeather(city: location);
 
       if (result is WeatherModel) {
         weather =

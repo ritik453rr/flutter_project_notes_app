@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:notes_app/model/note_model.dart';
-import 'package:notes_app/view/add_note_view.dart';
-import 'package:notes_app/view/note_view.dart';
-import 'package:notes_app/view/weather_view.dart';
+import 'package:notes_app/services/local_storage_services.dart';
+import 'package:notes_app/views/add_note_view.dart';
+import 'package:notes_app/views/login_view.dart';
+import 'package:notes_app/views/note_view.dart';
+import 'package:notes_app/views/weather_view.dart';
 import 'package:notes_app/view_model/notes_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -14,6 +16,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  LocalStorageService localStorageService = LocalStorageService();
   @override
   void initState() {
     Provider.of<NotesViewModel>(context, listen: false).loadLocalNotes();
@@ -24,16 +27,15 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Notes',
           style: TextStyle(
             fontSize: 32,
             fontWeight: FontWeight.w500,
-            color: Colors.white.withOpacity(0.9),
           ),
         ),
         actions: [
-          //Weather
+          //Weather Button...
           IconButton(
             tooltip: "Weather",
             onPressed: () {
@@ -47,18 +49,32 @@ class _HomeViewState extends State<HomeView> {
             icon: const Icon(Icons.cloud),
           ),
           //Refresh button.....
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: IconButton(
-              tooltip: "Refrsh",
-              onPressed: () {
-                Provider.of<NotesViewModel>(context, listen: false).loadNotes();
-              },
-              icon: Icon(
-                Icons.refresh,
-                color: Colors.white.withOpacity(0.8),
-              ),
+          IconButton(
+            tooltip: "Refrsh",
+            onPressed: () {
+              Provider.of<NotesViewModel>(context, listen: false).loadNotes();
+            },
+            icon: const Icon(
+              Icons.refresh,
             ),
+          ),
+          //LogOut Button
+          IconButton(
+            tooltip: "Logout",
+            onPressed: () {
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const LoginView(),
+                  ),
+                  (route) => false);
+              localStorageService.setLoginStatus(status: false);
+            },
+            icon: const Icon(Icons.logout_outlined),
+          ),
+          //Space..
+          const SizedBox(
+            width: 10,
           ),
         ],
       ),
@@ -97,10 +113,10 @@ class _HomeViewState extends State<HomeView> {
           }
           // 3. Show empty state message if no notes are available
           if (notesProvider.notes.isEmpty) {
-            return const Center(
+            return Center(
               child: Text(
-                'No Notes ',
-                style: TextStyle(fontSize: 25, color: Colors.white30),
+                'empty',
+                style: TextStyle(fontSize: 25, color: Colors.grey[500]),
               ),
             );
           }
